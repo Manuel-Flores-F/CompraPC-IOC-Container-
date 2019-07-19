@@ -3,8 +3,11 @@ from cj import Container
 # para Intefaz web
 from flask import Flask, jsonify, request, redirect, url_for
 from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
+
 
 class IVideo:
     def get_name(self, msg):
@@ -48,9 +51,9 @@ def test_of_dependencies():
     PC1.get_description()
 
 # Funciones de rutas
-@app.route('/')
-def home():
-    return render_template('layout.html')
+@app.route('/', methods=('GET','POST'))
+def inicio():
+    return render_template('base.html', title='UNI')
 
 
 # Funcion Principal   
