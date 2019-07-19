@@ -55,6 +55,9 @@ def test_of_dependencies():
 def inicio():
     return render_template('base.html', title='UNI')
 
+@app.route('/Comprar/',methods=('GET','POST'))
+def comprar():
+    return render_template('formulario.html', title='Comprar',usr_name='Usuario')
 
 # Funcion Principal   
 if __name__ == "__main__":
