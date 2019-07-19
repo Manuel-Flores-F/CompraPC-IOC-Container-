@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<hr>
+<h2 align="center">CONFIGURACIÓN DE LA PC</h1>
+<h3>Sr. {{ usr_name }} Aqui tiene su proforma:</h2>
+<br>
+<div>
+    <table class="table table-bordered">
+        <caption> Lista de precios sin IGV</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th>Objeto</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in list_items.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Precio Total</td>
+                <td>S/. {{ resultado }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

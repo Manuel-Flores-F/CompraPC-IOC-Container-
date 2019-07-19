@@ -10,6 +10,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'my_key'
 bootstrap = Bootstrap(app)
 
+result=''
+list_items=[]
 
 # Interfaces ---------------------------------
 class IVideo:
@@ -62,13 +64,25 @@ def test_of_dependencies():
 
 # Funciones de rutas
 @app.route('/', methods=('GET','POST'))
-def inicio():
+def home():
     return render_template('base.html', title='UNI')
 
-@app.route('/Comprar/',methods=('GET','POST'))
-def comprar():
+@app.route('/Buy/',methods=('GET','POST'))
+def buy():
     form_pc = ff.pc_form()
-    return render_template('formulario.html', title='Comprar',usr_name='Usuario', form=form_pc)
+    if form_pc.validate_on_submit():
+        try:
+            return render_template('form.html',title='Comprar',usr_name='Usuario', form=form_pc)
+        except:
+            return render_template('404.html',title=Error)
+    
+    return render_template('form.html',title='Comprar',usr_name='Usuario', form=form_pc)
+
+@app.route('/Result/', methods=('GET','POST'))
+def show_result():
+    result='S/. '+ str(1000)
+    list_items={'memoria':10,'disco':20,'video':30}
+    return render_template('result.html',title='Resultado',result=result, usr_name='Usuario', list_items=list_items)
 
 # Funcion Principal   
 if __name__ == "__main__":
