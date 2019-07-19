@@ -6,18 +6,6 @@ p{
   word-break: break-all;
 }
 
-div{
-  background: url(http://desarrollofrontend.com/wp-content/uploads/2014/11/img_default.png) no-repeat fixed center;
-  /*
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100%;
-  width: 100% ;
-  text-align: center;
-  */
-}
 
 #header{
   text-transform: uppercase;
@@ -34,5 +22,4 @@ div{
   max-width: 800px;
   margin: 20px auto;
 }
-
 
