@@ -12,61 +12,97 @@ bootstrap = Bootstrap(app)
 
 result=''
 list_items={}
-aux=0
-
-# Interfaces ---------------------------------
+PC1=''
+# Interfaces ##############################################################
 class IVideo:
     def get_name(self, msg):
         pass
 class IDisco:
     def get_name(self):
         pass
-
-# Implementaciones de Dependencias -----------
+class IMemoria:
+    def get_name(self):
+        pass
+# Implementaciones de Dependencias ########################################
 class VideoIntegrado (IVideo):
-    def get_name(self, msg):
-        print("Video Integrado")
+    def __init__(self):
+        self.price=100
+    def get_name(self):
         return "Video Integrado"
 
 class VideoDedicado (IVideo):
-    def get_name(self, msg):
-        print("Video Dedicado")
+    def __init__(self):
+        self.price=200
+    def get_name(self):
         return "Video Dedicado"
 
 class DiscoHDD(IDisco):
+    def __init__(self):
+        self.price=50
     def get_name(self):
         return "Disco Mecánico"
 
 class DiscoSSD(IDisco):
+    def __init__(self):
+        self.price=100
     def get_name(self):
         return "Disco Estado Solido"
 
-# Implementacion de la clase dependiente --------
+class MemoriaDDR3(IMemoria):
+    def __init__(self):
+        self.price=40
+    def get_name(self):
+        return "Memoria DDR3"
+
+class MemoriaDDR4(IMemoria):
+    def __init__(self):
+        self.price=80
+    def get_name(self):
+        return "Memoria DDR4"
+
+# Implementacion de la clase dependiente ###################################
 class PC:
-    def __init__(self, video:IVideo, disco: IDisco):
-        self.video=video
+    list={}
+    def __init__(self, memoria: IMemoria, video:IVideo, disco: IDisco):
+        self.memoria=memoria
         self.disco=disco
-
+        self.video=video                
+    def get_price(self):
+        return self.memoria.price+self.disco.price+self.video.price
     def get_description(self):
-        print("PC con "+self.video.get_name("")+' y '+self.disco.get_name())
+        self.list={self.memoria.get_name():self.memoria.price, self.disco.get_name(): self.disco.price, self.video.get_name():self.video.price}
+        print("Descripcion PC:"+'\n\t - '+self.memoria.get_name()+'\n\t - '+self.disco.get_name()+'\n\t - '+self.video.get_name())
 
-def test_of_dependencies():        
+def inject_dependencies(list_items):
+    global PC1
     container = Container()
-    container.register(IVideo, VideoIntegrado)
-    container.register(IDisco, DiscoHDD)
     container.register(PC)
 
+    for key, value in list_items.items():
+        if key == 'memoria':
+            if value == 'mem_op1':
+                container.register(IMemoria, MemoriaDDR3)
+            else:
+                container.register(IMemoria, MemoriaDDR4)
 
-    instance = container.resolve(IVideo)
-    instance.get_name("")
+        if key == 'disco':
+            if value == 'disk_op1':
+                container.register(IDisco, DiscoHDD)
+            else:
+                container.register(IDisco, DiscoSSD)
+        if key == 'video':
+            if value == 'video_op1':
+                container.register(IVideo, VideoIntegrado)
+            else:
+                container.register(IVideo, VideoDedicado)
     
     PC1 = container.resolve(PC)
     PC1.get_description()
 
-# Funciones de rutas
+# Funciones de rutas #####################################################
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('base.html', title='UNI')
+    return render_template('base.html', title='UNI', img = 1)
 
 @app.route('/Buy/',methods=['GET', 'POST'])
 def buy():
@@ -75,23 +111,20 @@ def buy():
     list_items['memoria'] = form_pc.radio_group_memory.data
     list_items['disco'] = form_pc.radio_group_disk.data
     list_items['video'] = form_pc.radio_group_video.data
-    if form_pc.validate():
-        print('aqui---------')
-        try:            
-            return redirect(url_for('show_result'))
-        except:
-            return render_template('404.html',title=Error)
-
     print(list_items)
-    return render_template('form.html',title='Comprar',usr_name='Usuario', form=form_pc)
+    if list_items['memoria']=='None' or list_items['disco']=='None' or list_items['video']=='None':
+        return render_template('form.html',title='Comprar',usr_name='Usuario', form=form_pc)
+    else:
+        inject_dependencies(list_items)
+        return redirect(url_for('show_result'))
 
 @app.route('/Result/', methods=['GET', 'POST'])
 def show_result():
-    result=str(1000)+ str(aux)
-    list_items={'memoria':10,'disco':20,'video':30}
-    return render_template('result.html',title='Resultado',result=result, usr_name='Usuario', list_items=list_items)
+    global PC1
+    result = PC1.get_price()
+    list=PC1.list
+    return render_template('result.html',title='Resultado',result=result, usr_name='Usuario', list_items=list)
 
-# Funcion Principal   
+# Funcion Principal  #################################################
 if __name__ == "__main__":
-    test_of_dependencies()
     app.run(debug=True, host='0.0.0.0')

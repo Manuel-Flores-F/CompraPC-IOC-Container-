@@ -28,8 +28,8 @@
 {% endblock %}
 
 
-{% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+{% block navbar %}    
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: white">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/">
           <img src="https://www.uni.edu.pe/images/demo/logouni.png" style="width: 80px; height: 80px;" alt="">
@@ -54,10 +54,20 @@
     <br>
     <br>
     <hr>
+
+{% block inicio %}
+  {% if img %}    
+    <img src="../static/background2.jpg" style="width: 100%; height: 600px;" alt="">
+    <div>cj</div>
+  {% else %}
+    .
+  {% endif %}
+{% endblock%}
 {% endblock %}
 
-{% block content %}
 
+
+{% block content %}
 {% endblock %}
 
 
