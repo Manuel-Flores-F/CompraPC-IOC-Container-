@@ -11,7 +11,7 @@ app.config['SECRET_KEY'] = 'my_key'
 bootstrap = Bootstrap(app)
 
 result=''
-list_items=[]
+list_items={}
 aux=0
 
 class IVideo:
@@ -56,26 +56,28 @@ def test_of_dependencies():
     PC1.get_description()
 
 # Funciones de rutas
-@app.route('/', methods=('GET','POST'))
+@app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('base.html', title='UNI')
 
-@app.route('/Buy/',methods=('GET','POST'))
+@app.route('/Buy/',methods=['GET', 'POST'])
 def buy():
-    global aux
-    aux=1111
+    global list_items
     form_pc = ff.pc_form()
-    if form_pc.validate_on_submit():
-        aux=2222
-        print(aux)
+    list_items['memoria'] = form_pc.radio_group_memory.data
+    list_items['disco'] = form_pc.radio_group_disk.data
+    list_items['video'] = form_pc.radio_group_video.data
+    if form_pc.validate():
+        print('aqui---------')
         try:            
             return redirect(url_for('show_result'))
         except:
             return render_template('404.html',title=Error)
-    print(aux)
+
+    print(list_items)
     return render_template('form.html',title='Comprar',usr_name='Usuario', form=form_pc)
 
-@app.route('/Result/', methods=('GET','POST'))
+@app.route('/Result/', methods=['GET', 'POST'])
 def show_result():
     result=str(1000)+ str(aux)
     list_items={'memoria':10,'disco':20,'video':30}
