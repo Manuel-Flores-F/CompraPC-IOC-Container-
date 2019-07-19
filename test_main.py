@@ -1,11 +1,13 @@
 from expects import equal, expect
 from cj import Container
 # para Intefaz web
+import formsFunc as ff
 from flask import Flask, jsonify, request, redirect, url_for
 from flask import Flask, flash, redirect, render_template, request, session, abort
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'my_key'
 bootstrap = Bootstrap(app)
 
 
@@ -57,7 +59,8 @@ def inicio():
 
 @app.route('/Comprar/',methods=('GET','POST'))
 def comprar():
-    return render_template('formulario.html', title='Comprar',usr_name='Usuario')
+    form_pc = ff.pc_form()
+    return render_template('formulario.html', title='Comprar',usr_name='Usuario', form=form_pc)
 
 # Funcion Principal   
 if __name__ == "__main__":
