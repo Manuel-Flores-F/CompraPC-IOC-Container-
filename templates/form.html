@@ -6,7 +6,7 @@
 <h2 align="center">CONFIGURACIÓN DE LA PC</h1>
 <h3>Sr. {{ usr_name }} escoja las caracteristicas de su Computadora:</h2>
 <br>
-<div style="background-color: gray">
+<div >
     <form action={{url_for("show_result")}}>
         <h3>{{form.radio_group_memory.label}}</h3>
         {% for subfield in form.radio_group_memory %}
