@@ -1,10 +1,15 @@
 from expects import equal, expect
 from cj import Container
 # para Intefaz web
+import formsFunc as ff
 from flask import Flask, jsonify, request, redirect, url_for
 from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'my_key'
+bootstrap = Bootstrap(app)
+
 
 # Interfaces ---------------------------------
 class IVideo:
@@ -55,10 +60,17 @@ def test_of_dependencies():
     PC1 = container.resolve(PC)
     PC1.get_description()
 
+# Funciones de rutas
+@app.route('/', methods=('GET','POST'))
+def inicio():
+    return render_template('base.html', title='UNI')
 
-@app.route('/')
-def home():
-    return render_template('layout.html')
+@app.route('/Comprar/',methods=('GET','POST'))
+def comprar():
+    form_pc = ff.pc_form()
+    return render_template('formulario.html', title='Comprar',usr_name='Usuario', form=form_pc)
+
+# Funcion Principal   
 if __name__ == "__main__":
     test_of_dependencies()
     app.run(debug=True, host='0.0.0.0')
