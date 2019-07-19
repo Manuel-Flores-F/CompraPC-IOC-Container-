@@ -52,7 +52,7 @@ class Registry:
     def register_concrete_service(self, service):
         if not type(service) is type:
             raise InvalidRegistrationException(
-                "The service %s can't be registered as its own implementation"
+                "El servicio %s no puede ser registrado como su propia implementacion"
                 % (repr(service))
             )
         self.__registrations[service].append(
@@ -85,7 +85,7 @@ class Registry:
             self.register_service_and_impl(service, factory, resolve_args)
         else:
             raise InvalidRegistrationException(
-                f"Expected a callable factory for the service {service} but received {factory}"
+                f"Se esperaba callable factory para el servicio {service} pero se recibio {factory}"
             )
         self._update_localns(service)
         ensure_forward_ref(self, service, factory, instance, **kwargs)
@@ -185,7 +185,7 @@ class Container:
 
         if registration is None:
             raise MissingDependencyException(
-                "Failed to resolve implementation for " + str(service_key)
+                "Error al resolver la implementacion para " + str(service_key)
             )
 
         if service_key in registration.needs.values():
