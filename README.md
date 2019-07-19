@@ -9,6 +9,12 @@ Instalar los siguientes paquetes
 - pip install flask-wtf
 - pip install flask-bootstrap4
 
+## Instrucciones
+- Para Distribuciones Linux: Tener instalado las librerias previas y ejecutar el script
+	- $ sh ./run.sh
+- Para Windows: Tener instalado las librerias previas y ejecutar los comandos.
+	- $ export FLASK_APP=test_main.py
+	- $ flask run
 ## Vistas Previas
 - Vista de Interfaz de inicio
 ![Image description](static/captura0.png)
