@@ -6,44 +6,52 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 
 app = Flask(__name__)
 
+# Interfaces ---------------------------------
 class IVideo:
     def get_name(self, msg):
         pass
-
-class VideoIntegrado (IVideo):
-    def get_name(self, msg):
-        print("Motor Electrico")
-        return "Motor Electrico"
-
-class VideoDedicado (IVideo):
-    def get_name(self, msg):
-        print("Motor Gas")
-        return "Motor Gas"
 class IDisco:
     def get_name(self):
         pass
 
-class DiscoHD(IDisco):
-    def get_name(self):
-        return "Ruedas tipo A"
+# Implementaciones de Dependencias -----------
+class VideoIntegrado (IVideo):
+    def get_name(self, msg):
+        print("Video Integrado")
+        return "Video Integrado"
 
+class VideoDedicado (IVideo):
+    def get_name(self, msg):
+        print("Video Dedicado")
+        return "Video Dedicado"
+
+class DiscoHDD(IDisco):
+    def get_name(self):
+        return "Disco Mecánico"
+
+class DiscoSSD(IDisco):
+    def get_name(self):
+        return "Disco Estado Solido"
+
+# Implementacion de la clase dependiente --------
 class PC:
-    def __init__(self, motor:IVideo, ruedas: IDisco):
-        self.motor=motor
-        self.ruedas=ruedas
+    def __init__(self, video:IVideo, disco: IDisco):
+        self.video=video
+        self.disco=disco
 
     def get_description(self):
-        print("PC con "+self.motor.get_name("")+' y '+self.ruedas.get_name())
+        print("PC con "+self.video.get_name("")+' y '+self.disco.get_name())
 
 def test_of_dependencies():        
     container = Container()
     container.register(IVideo, VideoIntegrado)
-    container.register(IDisco, DiscoHD)
+    container.register(IDisco, DiscoHDD)
     container.register(PC)
 
 
     instance = container.resolve(IVideo)
-    instance.get_name("beep")
+    instance.get_name("")
+    
     PC1 = container.resolve(PC)
     PC1.get_description()
 
