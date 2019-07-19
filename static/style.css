@@ -21,3 +21,27 @@ p{
   max-width: 800px;
   margin: 20px auto;
 }
+
+#fondo{
+  margin:0;
+  min-height:100vh;
+  background-image: url(./static/fondo.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#fondo:before{
+  content: "";
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  top:0;
+  left:0;
+
+  background: linear-gradient(90deg,#52c4df,#ad55c1);
+  opacity: 0.7;
+  z-index: -1;
+}
+
