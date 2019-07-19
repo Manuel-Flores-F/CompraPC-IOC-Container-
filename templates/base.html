@@ -29,22 +29,22 @@
 
 
 {% block navbar %}    
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: white">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: #750006">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/">
-          <img src="https://www.uni.edu.pe/images/demo/logouni.png" style="width: 80px; height: 80px;" alt="">
-        </a> <h2>Mercado Virtual UNI</h2>
+          <img src="../static/unimarket.png" style="width: 80px; height: 80px;" alt="">
+        </a> <h2 style="color:white">Mercado Virtual UNI</h2>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/">Inicio</a>
+          <ul class="navbar-nav ml-auto" >
+            <li class="nav-item" >
+              <a class="nav-link js-scroll-trigger" href="/"><span style="color:white">Inicio</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/Buy/">Compra PC</a>
+              <a class="nav-link js-scroll-trigger" href="/Buy/"><span style="color:white">Compra PC</span></a>
           </ul>
         </div>
       </div>
@@ -57,7 +57,7 @@
 
 {% block inicio %}
   {% if img %}    
-    <img src="../static/background2.jpg" style="width: 100%; height: 600px;" alt="">
+    <img src="../static/background0.jpg" style="width: 100%; height: 70vh;" alt="">
     <div>cj</div>
   {% else %}
     .
