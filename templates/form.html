@@ -7,7 +7,7 @@
 <h3>Sr. {{ usr_name }} escoja las caracteristicas de su Computadora:</h2>
 <br>
 <div style="background-color: gray">
-    <form action={{url_for("show_result")}}>
+    <form action='' method="post">
         <h3>{{form.radio_group_memory.label}}</h3>
         {% for subfield in form.radio_group_memory %}
         <p>

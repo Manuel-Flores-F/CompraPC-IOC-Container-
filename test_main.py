@@ -12,6 +12,7 @@ bootstrap = Bootstrap(app)
 
 result=''
 list_items=[]
+aux=0
 
 class IVideo:
     def get_name(self, msg):
@@ -35,12 +36,12 @@ class DiscoHD(IDisco):
         return "Ruedas tipo A"
 
 class PC:
-    def __init__(self, motor:IVideo, ruedas: IDisco):
-        self.motor=motor
-        self.ruedas=ruedas
+    def __init__(self, video:IVideo, disco: IDisco):
+        self.video=video
+        self.disco=disco
 
     def get_description(self):
-        print("PC con "+self.motor.get_name("")+' y '+self.ruedas.get_name())
+        print("PC con "+self.video.get_name("")+' y '+self.disco.get_name())
 
 def test_of_dependencies():        
     container = Container()
@@ -61,18 +62,22 @@ def home():
 
 @app.route('/Buy/',methods=('GET','POST'))
 def buy():
+    global aux
+    aux=1111
     form_pc = ff.pc_form()
     if form_pc.validate_on_submit():
-        try:
-            return render_template('form.html',title='Comprar',usr_name='Usuario', form=form_pc)
+        aux=2222
+        print(aux)
+        try:            
+            return redirect(url_for('show_result'))
         except:
             return render_template('404.html',title=Error)
-    
+    print(aux)
     return render_template('form.html',title='Comprar',usr_name='Usuario', form=form_pc)
 
 @app.route('/Result/', methods=('GET','POST'))
 def show_result():
-    result='S/. '+ str(1000)
+    result=str(1000)+ str(aux)
     list_items={'memoria':10,'disco':20,'video':30}
     return render_template('result.html',title='Resultado',result=result, usr_name='Usuario', list_items=list_items)
 
