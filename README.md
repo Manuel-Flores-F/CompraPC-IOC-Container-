@@ -11,7 +11,7 @@ Instalar los siguientes paquetes
 
 ## Vistas Previas
 - Vista de Interfaz de inicio
-![Image description](static/captura0.png)
+![Image description](static/captura0.jpeg)
 - Vista de la Interfaz de compra
 ![Image description](static/captura1.png)
 - Vista de la Interfaz de Resultados
