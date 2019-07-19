@@ -47,10 +47,13 @@ def test_of_dependencies():
     PC1 = container.resolve(PC)
     PC1.get_description()
 
-
+# Funciones de rutas
 @app.route('/')
 def home():
     return render_template('layout.html')
+
+
+# Funcion Principal   
 if __name__ == "__main__":
     test_of_dependencies()
     app.run(debug=True, host='0.0.0.0')
